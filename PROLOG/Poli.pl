@@ -1,46 +1,47 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%   Inteligencia Artificial     %
-%        Proyecto 1             %
-%                               %
-% 	**			 %
-% 	**  			%
-%	**			 %
-% 	**			 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%           Inteligencia Artificial           %
+%            Proyecto 1:Polinomios            %
+%                                             %
+%  Salvador Alejandro Uribe Calva  -  188311  %
+%  Bruno Vitte San Juan            -          %
+%  Paulina Garza Allende           -          %
+%  Josu√© Miguel M√©ndez S√°nchez	   -          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 /*
  * Manejador de polinomios.
- * Operaciones: Suma, resta, multiplicaciÛn, derivada, evaluaciÛn,
- * y composiciÛn.
+ * Operaciones: Suma, resta, multiplicaci√≥n, derivada, evaluaci√≥n,
+ * y composici√≥n.
  * Los polinomios son representados como listas. Cada elemento de la
- * lista representa un coeficiente.
- * 
- * Las listas est·n organizadas del menor coeficiente al mayor coeficiente
+ * lista representa un coeficiente. El orden de los elementos es del
+ * menor coeficiente como cabeza, al mayor coeficiente.
  *
- * main. <----- Consulta sugerida.
-*/
+ *
+ * main.  -  Ejecuci√≥n de las pruebas que est√°n en el programa
+ *           original de Java
+ */
 
 %------------------- SUMA -------------------------------
 /*
- * add(i,i,o) - caso base 1: listas del mismo tamaÒo que se
+ * add(i,i,o) - caso base 1: listas del mismo tama√±o que se
  *                           terminaron de sumar.
 */
 add([],[],[]).
 
 /*
- * add(i,i,o) - caso base 2: la segunda lista es m·s larga que
+ * add(i,i,o) - caso base 2: la segunda lista es m√°s larga que
  *                           la primera lista.
 */
 add([],List,List).
 
 /*
- * add(i,i,o) - caso base 3: la primera lista es m·s
+ * add(i,i,o) - caso base 3: la primera lista es m√°s
  *                           larga que la segunda lista.
 */
-add(Lista,[],Lista).
+add(List,[],List).
 
 /*
- * add(i,i,o) - mÈtodo que realiza la suma de polinomios.
+ * add(i,i,o) - m√©todo que realiza la suma de polinomios.
 */
 add([X|List1],[Y|List2],[Z|Resp]):-
     Z is X+Y,
@@ -50,80 +51,80 @@ add([X|List1],[Y|List2],[Z|Resp]):-
 %------------------- RESTA -------------------------------
 
 /*
- * minus(i,i,o) - caso base 1: listas del mismo tamaÒo que se
+ * minus(i,i,o) - caso base 1: listas del mismo tama√±o que se
  *                             terminaron de sumar.
 */
 minus([],[],[]).
 
 /*
- * minus(i,i,o) - caso base 2: la segunda lista es m·s larga que
+ * minus(i,i,o) - caso base 2: la segunda lista es m√°s larga que
  *                             la primera lista.
 */
 minus([],List,List).
 
 /*
- * minus(i,i,o) - caso base 3: la primera lista es m·s
+ * minus(i,i,o) - caso base 3: la primera lista es m√°s
  *                             larga que la segunda lista.
 */
-minus(Lista,[],Lista).
+minus(List,[],List).
 
 /*
- * minus(i,i,o) - mÈtodo que realiza la resta de polinomios.
+ * minus(i,i,o) - m√©todo que realiza la resta de polinomios.
 */
 minus([X|List1],[Y|List2],[Z|Resp]):-
     Z is X-Y,
     %llamada recursiva para continuar con la resta
     minus(List1,List2,Resp).
 
-%------------------- MULTIPLICACI”N -------------------------------
+%------------------- MULTIPLICACI√ìN -------------------------------
 
 /*
- * product(i,i,o) - caso base: se terminÛ de multiplicar los
+ * product(i,i,o) - caso base: se termin√≥ de multiplicar los
  *                             elementos de la lista.
 */
 product([],_M,[]).
 
 /*
- * product(i,i,o) - mÈtodo auxiliar que realiza la multiplicaciÛn
- *                  de un tÈrmino por un polinomio.
+ * product(i,i,o) - m√©todo auxiliar que realiza la multiplicaci√≥n
+ *                  de un t√©rmino por un polinomio.
 */
 product([X|List1],M,[Y|Resp]):-
-    %multiplicaciÛn
+    %multiplicaci√≥n
     Y is X*M,
     %llamada recursiva para seguir multiplicando
     product(List1,M,Resp).
 
 /*
- * product(i,i,o) - caso base: se terminÛ de multiplicar los
+ * product(i,i,o) - caso base: se termin√≥ de multiplicar los
  *                             elementos.
 */
 times(_,[],[]).
 
 /*
- * times(i,i,o) - mÈtodo que recibe los dos polinomios a
- *                multiplicar y lleva la operaciÛn a cabo
- *                con ayuda de los mÈtodos auxiliares.
+ * times(i,i,o) - m√©todo que recibe los dos polinomios a
+ *                multiplicar y lleva la operaci√≥n a cabo
+ *                con ayuda de los m√©todos auxiliares.
 */
 times(List1,[T|List2],Resp):-
     %llamada recursiva para recorrer lista
     times(List1,List2,Resp2),
-    %para realizar el producto de un tÈrmino por una lista
+    %para realizar el producto de un t√©rmino por una lista
     product(List1,T,Resp3),
     %sumar los resultados obtenidos
     add(Resp3,[0|Resp2],Resp).
 
-% --------------- COMPOSICI”N DE FUNCIONES ----------------------------
+% --------------- COMPOSICI√ìN DE FUNCIONES ----------------------------
 
 /*
- * elevate(i,i,o) - mÈtodo auxiliar que solo hace la llamada
- *                  al mÈtodo elevate/4.
+ * elevate(i,i,o) - m√©todo auxiliar que solo hace la llamada
+ *                  al m√©todo elevate/4.
 */
 elevate(Pol,Deg,R):-
-    %llamada al mÈtodo que realizar· la operaciÛn
-    elevate(Pol,Pol,Deg-1,Acum,R).
+    %llamada al m√©todo que realizar√° la operaci√≥n
+    elevate(Pol,Pol,Deg-1,_Acum,R).
 
 /*
- * elevate(i,i,i,i,o) - mÈtodo auxiliar que toma un polinomio y
+ * elevate(i,i,i,i,o) - m√©todo auxiliar que toma un polinomio y
  *                      lo eleva a la potencia indicada.
 */
 elevate(Pol,Pol2,Deg,Acum,R):-
@@ -132,20 +133,20 @@ elevate(Pol,Pol2,Deg,Acum,R):-
     %para multiplicar el polinomio a elevar
     times(Pol,[X|Y],Acum),
     %llamada recursiva
-    elevate(Pol,Acum,Deg-1,L,R);
+    elevate(Pol,Acum,Deg-1,_L,R);
     %regresar el valor del polinomio elevado
     R = Pol2).
 
 /*
- * compose(i,i,o) - mÈtodo auxiliar que hace la llamada
- *                  al mÈtodo compose/5.
+ * compose(i,i,o) - m√©todo auxiliar que hace la llamada
+ *                  al m√©todo compose/5.
 */
 comp(Pol1,Pol2,R):-
     %
     comp(Pol2,Pol1,0,[0],R).
 
 /*
- * comp(i,i,i,i,o) - mÈtodo que realiza la composiciÛn
+ * comp(i,i,i,i,o) - m√©todo que realiza la composici√≥n
  *                      de dos polinomios.
 */
 comp(Pol1,[X|P2],Deg,Suma,R):-
@@ -157,14 +158,60 @@ comp(Pol1,[X|P2],Deg,Suma,R):-
     %para hacer la suma de resultados
     add(Suma,Acum2,Res);
     Res = [X]),
-    %para continuar haciendo la composiciÛn, se interrumpe si ya no hay otro tÈrmino
+    %para continuar haciendo la composici√≥n, se interrumpe si ya no hay otro t√©rmino
     (P2 \== [] ->
     comp(Pol1,P2,Deg+1,Res,R);
     R = Res).
 
-% --------------- EVALUACI”N DE FUNCIONES ----------------------------
+% --------------- EVALUACI√ìN DE FUNCIONES ----------------------------
 
-%evaluate
+/*
+ * sumador(i,i,o) - caso base: se termin√≥ de sumar la lista
+ *
+*/
+sumador([],X,X).
+
+/*
+ * sumador(i,i,o) - m√©todo auxiliar que suma todos los elementos de una
+ *                  lista
+*/
+
+sumador([H|T],Acum,R):-
+   A2 is Acum + H,
+   sumador(T,A2,R).
+/*
+ * sumador(i,o) - Definici√≥n auxiliar para usar el sumador
+ */
+
+sumador(List,R):-
+    sumador(List,0,R).
+
+
+/*
+ * evaluate(i,i,o) - caso base: se termin√≥ de evaluar los
+ *                             elementos de la lista.
+*/
+
+evaluate([],_Deg,_Val,[]).
+
+/*
+ * evaluate(i,i,i,o) - m√©todo auxiliar que eval√∫a un valor en un
+ *                   polinomio. devuelve una lista con todos los valores
+ *                   evaluados.
+*/
+evaluate([X|List],Deg,Val,[Y|R]):-
+    Y is (Val**Deg)*X,
+    evaluate(List,Deg+1,Val,R).
+
+/*
+ * evaluate(i,i,o)  - m√©todo que eval√∫a un valor en un polinomio.
+ *
+*/
+evaluate(List,Val,R):-
+    evaluate(List,0,Val,PolEval),
+    sumador(PolEval,R).
+
+%hornerEval()
 
 % ---------------------------- DERIVADA ------------------------------
 
@@ -177,8 +224,8 @@ repite:-
 % Si regresa falso, quiere decir que el polinomio solo contiene una
 % constante
 derivative(Pol,R):-
-    Pol = [_|Lista],
-    der(Lista,1,R,_,[]).
+    Pol = [_|List],
+    der(List,1,R,_,[]).
 
 %asigna al resultado el valor de 0
 derivative(_,R):-
@@ -202,9 +249,9 @@ der(List,Deg,L,R):-
 % ---------------------------- IMPRIMIR ------------------------------
 
 /*
- * imprime(i) -  mÈtodo que recibe una lista, calcula el grado del
- *               polinomio a imprimir y llama a un mÈtodo auxiliar
- *               para imprimir el primer tÈrmino del polinomio.
+ * imprime(i) -  m√©todo que recibe una lista, calcula el grado del
+ *               polinomio a imprimir y llama a un m√©todo auxiliar
+ *               para imprimir el primer t√©rmino del polinomio.
 */
 imprime(List):-
     %para obtener el grado del polinomio
@@ -212,14 +259,14 @@ imprime(List):-
     Deg is X-1,
     %invertir la lista para imprimir el polinomio en orden
     reverse(List,Y),
-    %llamada a mÈtodo para imprimir primer tÈrmino
+    %llamada a m√©todo para imprimir primer t√©rmino
     imprime(Y,Deg,1).
 
 /*
- * imprime(i,i,i) - mÈtodo auxilia que recibe una lista que representa
+ * imprime(i,i,i) - m√©todo auxilia que recibe una lista que representa
  *                  a un polinomio y el grado de este e imprime el
- *                  primer tÈrmino del polinomio para despuÈs llamar a
- *                  un mÈtodo que contin˙e imprimiendo el polinomio.
+ *                  primer t√©rmino del polinomio para despu√©s llamar a
+ *                  un m√©todo que contin√∫e imprimiendo el polinomio.
 */
 imprime([X|List],Degree,_):-
     %verificar si es grado 0
@@ -237,16 +284,16 @@ imprime([X|List],Degree,_):-
     ),%fin if else
     %ajustar grado
     NewDeg is Degree-1,
-    %llamada para imprimir mÈtodo
+    %llamada para imprimir m√©todo
     imprime(List,NewDeg).
 
 /*
- * imprime(i) -  caso base: la lista est· vacÌa.
+ * imprime(i) -  caso base: la lista est√° vac√≠a.
 */
 imprime([],_).
 
 /*
- * imprime(i,i) -  mÈtodo  que imprime una lista en forma de polinomio.
+ * imprime(i,i) -  m√©todo  que imprime una lista en forma de polinomio.
  */
 imprime([X|List],Degree):-
     %caso en el que el grado sea 0
@@ -312,6 +359,7 @@ main:-
     imprime(P3),  %1
     nl,
     imprime(P4), %2x
+    nl,
     %sumando polinomios
     add(P1,P2,A),
     imprime(A), %4x^3 + 3x^2
@@ -336,10 +384,14 @@ main:-
     times(P,Q,S),
     imprime(S), %12x^5 + 9x^4 + 26x^3 + 18x^2 + 10x + 5
     nl,
-    %composiciÛn de polinomios,
+    %composici√≥n de polinomios,
     comp(P,Q,T),
     imprime(T), %108x^6 + 567x^4 + 996x^2 + 586
     nl.
+
+
+
+
 
 
 
