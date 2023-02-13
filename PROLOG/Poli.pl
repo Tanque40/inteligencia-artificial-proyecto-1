@@ -165,53 +165,17 @@ comp(Pol1,[X|P2],Deg,Suma,R):-
 
 % --------------- EVALUACIÓN DE FUNCIONES ----------------------------
 
-/*
- * sumador(i,i,o) - caso base: se terminó de sumar la lista
- *
-*/
-sumador([],X,X).
 
-/*
- * sumador(i,i,o) - método auxiliar que suma todos los elementos de una
- *                  lista
-*/
+hornerEval(List,Val,R):-
+    reverse(List,ListInv),
+    hornerEval(ListInv,Val,0,R).
 
-sumador([H|T],Acum,R):-
-   A2 is Acum + H,
-   sumador(T,A2,R).
-/*
- * sumador(i,o) - Definición auxiliar para usar el sumador
- */
+hornerEval([X|List1],Val,Acum,R):-
+    Z is Acum*Val + X,
+    hornerEval(List1,Val,Z,R).
 
-sumador(List,R):-
-    sumador(List,0,R).
+hornerEval([],_,R,R).
 
-
-/*
- * evaluate(i,i,o) - caso base: se terminó de evaluar los
- *                             elementos de la lista.
-*/
-
-evaluate([],_Deg,_Val,[]).
-
-/*
- * evaluate(i,i,i,o) - método auxiliar que evalúa un valor en un
- *                   polinomio. devuelve una lista con todos los valores
- *                   evaluados.
-*/
-evaluate([X|List],Deg,Val,[Y|R]):-
-    Y is (Val**Deg)*X,
-    evaluate(List,Deg+1,Val,R).
-
-/*
- * evaluate(i,i,o)  - método que evalúa un valor en un polinomio.
- *
-*/
-evaluate(List,Val,R):-
-    evaluate(List,0,Val,PolEval),
-    sumador(PolEval,R).
-
-%hornerEval()
 
 % ---------------------------- DERIVADA ------------------------------
 
@@ -219,7 +183,7 @@ repite.
 repite:-
     repite.
 
-% derivative - llama a la funci[on recursiva empezando con un exponente
+% derivative - llama a la función recursiva empezando con un exponente
 % 1 (ya que la derivada de una constante es 0)
 % Si regresa falso, quiere decir que el polinomio solo contiene una
 % constante
@@ -347,11 +311,14 @@ imprime([X|List],Degree):-
 
 main:-
     %definiendo polinomios para realizar operaciones
+    Pz = [0],
     P1 = [0,0,0,4],
     P2 = [0,0,3],
     P3 = [1],
     P4 = [0,2],
     %imprimiendo los polinomios
+    imprime(Pz), %0
+    nl,
     imprime(P1), %4x^3
     nl,
     imprime(P2), %3x^2
@@ -387,14 +354,28 @@ main:-
     %composición de polinomios,
     comp(P,Q,T),
     imprime(T), %108x^6 + 567x^4 + 996x^2 + 586
-    nl.
+    nl,
+    %Resta
+    %minus([0,0,0,0],P,Res),
+    %imprime(Res),
+    %nl,
+    %Evaluar
+    hornerEval(P,3,H),
+    write(H),
+    nl,
+
+    %Derivada
+
+    %%derivative(P,Der),
+    %%imprime(Der),
+    nl,
 
 
 
+    %Segunda Derivada
 
 
 
-
-
+    false.
 
 
