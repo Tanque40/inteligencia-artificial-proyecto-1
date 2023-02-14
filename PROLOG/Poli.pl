@@ -9,7 +9,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 /*
- * /Users/josue2929m/Documents/IA/Sin título/prolog/poli.pi 
  * Manejador de polinomios.
  * Operaciones: Suma, resta, multiplicación, derivada, evaluación,
  * y composición.
@@ -357,8 +356,8 @@ main:-
     imprime(T), %108x^6 + 567x^4 + 996x^2 + 586
     nl,
     %Resta
-    minus([0,0,0,0],P,Res),
-    imprime(Res),
+    %minus([0,0,0,0],P,Res),
+    %imprime(Res),
     %nl,
     %Evaluar
     hornerEval(P,3,H),
