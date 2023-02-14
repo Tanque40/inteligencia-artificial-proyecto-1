@@ -3,7 +3,7 @@
 %            Proyecto 1:Polinomios            %
 %                                             %
 %  Salvador Alejandro Uribe Calva  -  188311  %
-%  Bruno Vitte San Juan            -          %
+%  Bruno Vitte San Juan            -  179524  %
 %  Paulina Garza Allende           -          %
 %  Josué Miguel Méndez Sánchez	   -          %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -287,7 +287,6 @@ imprime([X|List],Degree):-
           write(" - "),
           Temp is -1*X,
           write(Temp),
-          write(X),
           write("x")
        )%cierre if else
     );
