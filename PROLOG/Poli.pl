@@ -4,8 +4,8 @@
 %                                             %
 %  Salvador Alejandro Uribe Calva  -  188311  %
 %  Bruno Vitte San Juan            -  179524  %
-%  Paulina Garza Allende           -          %
-%  Josué Miguel Méndez Sánchez	   -          %
+%  Paulina Garza Allende           -  188456  %
+%  Josué Miguel Méndez Sánchez	   -  182977  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 /*
