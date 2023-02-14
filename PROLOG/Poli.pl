@@ -14,8 +14,9 @@
  * y composición.
  * Los polinomios son representados como listas. Cada elemento de la
  * lista representa un coeficiente. El orden de los elementos es del
- * menor coeficiente como cabeza, al mayor coeficiente.
+ * menor exponente, como cabeza, al del mayor exponente.
  *
+ * Ej: [1,2,3,4] ---> 1+2x+3x^2+4x^3
  *
  * main.  -  Ejecución de las pruebas que están en el programa
  *           original de Java
@@ -54,7 +55,7 @@ add([X|List1],[Y|List2],[Z|Resp]):-
  * minus(i,i,o) - caso base 1: listas del mismo tamaño que se
  *                             terminaron de sumar.
 */
-minus([],[],[]).
+%minus([],[],[]).
 
 /*
  * minus(i,i,o) - caso base 2: la segunda lista es más larga que
@@ -165,50 +166,55 @@ comp(Pol1,[X|P2],Deg,Suma,R):-
 
 % --------------- EVALUACIÓN DE FUNCIONES ----------------------------
 
-
+/*
+ * hornerEval(i,i,o) - método auxiliar que recibe el polinomio para
+ *                     invertirlo y poder aplicarle la regla de Horner
+*/
 hornerEval(List,Val,R):-
     reverse(List,ListInv),
     hornerEval(ListInv,Val,0,R).
+/*
+ * hornerEval(i,i,i,o) - método que evalúa un polinomio utilizando la
+ *                       regla de Horner
+*/
 
 hornerEval([X|List1],Val,Acum,R):-
     Z is Acum*Val + X,
     hornerEval(List1,Val,Z,R).
-
+/*
+ * hornerEval(i,i,i,o) - definición auxiliar que nos permite terminar el
+ *                       método
+*/
 hornerEval([],_,R,R).
 
 
 % ---------------------------- DERIVADA ------------------------------
 
-repite.
-repite:-
-    repite.
+/*
+ * derivar(i,o) - método auxiliar que toma un polinomio y recorre a la
+ *                izquierda todos sus cocientes al quitar la cabeza,
+ *                bajando así el grado.
+*/
+derivar([_|Lista],R):-
+    derivar(Lista,1,R),
+    !.
+/*
+ * derivar(i,i,o) - método que deriva un polinomio al recibir una lista
+ *                  de cocientes y los multiplica por su respectivo
+ *                  grado
+*/
+derivar([X|List],Exp,[Z|R]):-
+    Z is X*Exp,
+    Y is Exp+1,
+    derivar(List,Y,R).
 
-% derivative - llama a la función recursiva empezando con un exponente
-% 1 (ya que la derivada de una constante es 0)
-% Si regresa falso, quiere decir que el polinomio solo contiene una
-% constante
-derivative(Pol,R):-
-    Pol = [_|List],
-    der(List,1,R,_,[]).
+/*
+ * derivar(i,i,o) - definición adicional que nos permite devolver el
+ *                  polinomio derivado
+ */
+derivar(R,_,R).
 
-%asigna al resultado el valor de 0
-derivative(_,R):-
-    R is [0].
 
-%se lleva a cabo el proceso de la derivada recursivamente
-der(List,Deg,R,L,R2):-
-    List = [X|Lista],
-    Lista \== [],
-    Y is X * Deg,
-    der(Lista,Deg+1,L,R2),
-    R = [Y|L],
-    write("repite"),
-    repite().
-
-der(List,Deg,L,R):-
-    List = [X|_],
-    Y is X * Deg,
-    append([Y],R,L).
 
 % ---------------------------- IMPRIMIR ------------------------------
 
@@ -306,7 +312,6 @@ imprime([X|List],Degree):-
     %disminuir el grado
     NewDeg is Degree-1,
     imprime(List,NewDeg).
-
 % -------------------------------- MAIN ------------------------------
 
 main:-
@@ -317,65 +322,63 @@ main:-
     P3 = [1],
     P4 = [0,2],
     %imprimiendo los polinomios
-    imprime(Pz), %0
+    write("zero(x) = "),imprime(Pz), %0
     nl,
-    imprime(P1), %4x^3
+    write("P1(X) = "), imprime(P1), %4x^3
     nl,
-    imprime(P2), %3x^2
+    write("P2(X) = "), imprime(P2), %3x^2
     nl,
-    imprime(P3),  %1
+    write("P3(X) = "), imprime(P3),  %1
     nl,
-    imprime(P4), %2x
+    write("P4(X) = "), imprime(P4), %2x
     nl,
     %sumando polinomios
     add(P1,P2,A),
-    imprime(A), %4x^3 + 3x^2
+    write("A(X) = P1(X) + P2(X) = "),imprime(A), %4x^3 + 3x^2
     nl,
     add(A,P3,B),
-    imprime(B), %4x^3 + 3x^2 + 1
+    write("B(X) = A(X) + P3(X) = "), imprime(B), %4x^3 + 3x^2 + 1
     nl,
     add(B,P4,P),
-    imprime(P), %4x^3 + 3x^2 + 2x + 1
+    write("P(X) = B(X) + P4(X) = "), imprime(P), %4x^3 + 3x^2 + 2x + 1
     nl,
     %definiendo polinomios
     Q1 = [0,0,3],
     Q2 = [5],
     %sumando polinomios
     add(Q1,Q2,Q),
-    imprime(Q), %3x^2 + 5.
+    write("Q(X) = "), imprime(Q), %3x^2 + 5.
     nl,
     add(P,Q,R),
-    imprime(R), %4x^3 + 6x^2 + 2x + 6
+    write("P(X) + Q(X) = "),imprime(R), %4x^3 + 6x^2 + 2x + 6
     nl,
     %multiplicando polinomios
     times(P,Q,S),
-    imprime(S), %12x^5 + 9x^4 + 26x^3 + 18x^2 + 10x + 5
+    write("P(X) * Q(X) = "),imprime(S), %12x^5 + 9x^4 + 26x^3 + 18x^2 + 10x + 5
     nl,
     %composición de polinomios,
     comp(P,Q,T),
-    imprime(T), %108x^6 + 567x^4 + 996x^2 + 586
+    write("P(Q(X)) = "),imprime(T), %108x^6 + 567x^4 + 996x^2 + 586
     nl,
     %Resta
-    %minus([0,0,0,0],P,Res),
-    %imprime(Res),
-    %nl,
+    minus([0,0,0,0],P,Res),
+    write("0 - P(X) = "),imprime(Res),
+    nl,
     %Evaluar
-    hornerEval(P,3,H),
+    write("P(3) = "),hornerEval(P,3,H),
     write(H),
     nl,
 
     %Derivada
 
-    %%derivative(P,Der),
-    %%imprime(Der),
+    derivar(P,Der),
+    write("P'(X) = "),imprime(Der),
     nl,
 
-
-
     %Segunda Derivada
-
-
-
-    false.
+    derivar(Der,Der2),
+    write("P''(X) = "),imprime(Der2),
+    nl,
+    !.
 
 
